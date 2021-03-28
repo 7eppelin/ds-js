@@ -1,6 +1,6 @@
 
 
-// this is a circular doubly linked list
+// circular doubly linked list
 
 
 class LinkedList {
@@ -8,21 +8,21 @@ class LinkedList {
     // i.e. new LinkedList(2, 7, 5, ...) 
     // or new LinkedList(...someIterable)
     constructor(...values) {
-        this.length = 0
-        this.head = null
-        this.tail = null
+        this.length = 0;
+        this.head = null;
+        this.tail = null;
 
-        this.push(...values)
+        this.push(...values);
     }
 
     unshift(...values) {
-        this.addTo('head', ...values)
-        return this
+        this.addTo('head', ...values);
+        return this;
     }
 
     push(...values) {
-        this.addTo('tail', ...values)
-        return this
+        this.addTo('tail', ...values);
+        return this;
     }
 
     addTo(to, ...values) {
@@ -31,19 +31,13 @@ class LinkedList {
 
             // if this is the first inserted elem
             if (!this.length) {
-                if (to === 'head') {
-                    this.tail = node
-                } else if (to === 'tail') {
-                    this.head = node
-                }
+                this.tail = this.head = node;
                 
             // otherwise update the tail.next and head.prev links
             } else {
-                this.tail.next = node
-                this.head.prev = node
+                this.tail.next = this.head.prev = node;
+                this[to] = node;
             }
-
-            this[to] = node;
             this.length++
         })
     }
@@ -64,10 +58,12 @@ class LinkedList {
         // save the value so we'll be able to return it
         const el = this.head.value       
 
-        // update this.tail link to the 2nd last elem
         if (from === 'head') {
-            this.head = this.head.prev
+            // update the head link to the 2nd elem
+            this.head = this.head.next
+            
         } else if (from === 'tail') {
+            // update the tail link to the 2nd last elem
             this.tail = this.tail.prev
         }
 
@@ -96,10 +92,7 @@ class LinkedList {
         return {
             next() {
                 if (count < length) {
-                    const result = {
-                        value: current.value,
-                        done: false
-                    }
+                    const result = { value: current.value }
                     current = current.next
                     count++
                     return result
