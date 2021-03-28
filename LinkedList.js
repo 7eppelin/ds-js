@@ -1,7 +1,6 @@
 
 
 // this is a circular doubly linked list
-// but more like an array
 
 
 class LinkedList {
