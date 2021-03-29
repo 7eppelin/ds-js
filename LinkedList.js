@@ -42,6 +42,37 @@ class LinkedList {
         })
     }
 
+    insertAfter(elem, ...values) {
+        let current = this.head;
+        while(current.value !== elem) {
+            current = current.next
+        }
+        this.#insertValues(current, ...values)
+        return this
+    }
+
+    insertAfterIndex(index, ...values) {
+        let current = this.head;
+        let count = 0;
+        while(count <= index) {
+            count++
+            current = current.next
+        }
+        this.#insertValues(current, ...values)
+        return this
+    }
+
+    #insertValues = (current, ...values) => {
+        values.forEach(value => {
+            const node = this.#newNode(value)
+            node.prev = current;
+            node.next = current.next
+            current.next = node;
+            current = node
+            this.length++
+        })
+    }
+
     // removes the first elem
     shift() {
         return this.removeFrom('head')
@@ -139,5 +170,12 @@ list.print()
 const arr = [ ...list ]
 console.log(arr)
 
-list.push(666, 444, 222)
+// insert values 666 and 444 after the element with value 10 (the first one)
+list.insertAfter(10, 666, 444)
+
+// insert values 'a', 'as' and 'asd' after the element under index 2 
+// (starting from zero, that would be the element with value 444)
+const strings = ['a', 'as', 'asd']
+list.insertAfterIndex(2, ...strings)
+
 console.log(...list)
