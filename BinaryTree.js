@@ -30,10 +30,11 @@ class BinaryTree {
         return false
     }
 
-    // is it a perfect binary tree? (every node has 2 child nodes, all the leaf nodes are at the same level)
+    // is it a perfect binary tree? (every node has 2 child nodes, all leaves are at the same level)
     isPerfect() {
         if (!this.root) return true
         const height = this.getHeight(this.root)
+        // in a perfect BT the amount of nodes = 2 ** (tree's height + 1) - 1
         return this.size === 2**(height + 1) - 1
     }
 
