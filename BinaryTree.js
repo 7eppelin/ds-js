@@ -1,5 +1,10 @@
-
-
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.left = null;
+        this.right = null;
+    }
+}
 
 class BinaryTree {
     root = null
@@ -38,32 +43,34 @@ class BinaryTree {
         return this.size === 2**(height + 1) - 1
     }
 
+    // a BT in which the height of the left and right subtree of any node differ by not more than 1
+    isBalanced() {
+        const left = this.getHeight(this.root.left);
+        const right = this.getHeight(this.root.right);
+        return Math.abs(left - right) <= 1
+    }
+
+    isComplete(root, index = 0) {
+        if (!root) return true
+
+        if (index >= this.size) return false
+
+        // in complete binary trees the left child node will always have
+        // index = 2*index + 1, where index is the index of the parent
+        // and the right node's index = 2*index + 2
+        return this.isComplete(root.left, 2*index + 1) && 
+            this.isComplete(root.right, 2*index + 2)
+    }
+
     // create a binary tree from an array
     fromArray(arr, node, i = 0) {
         if (i < arr.length) {
-            node = { value: arr[i] }
+            node = new Node(arr[i])
             this.size++
             node.left = this.fromArray(arr, node.left, 2 * i + 1)
             node.right = this.fromArray(arr, node.right, 2 * i + 2)
         }
         return node
-    }
-
-    static isComplete(root, index = 0, size = this.getSize(root)) {
-        if (!root) return true
-
-        if (index >= size) return false
-
-        // in complete binary trees the left child node will always have
-        // index = 2*index + 1, where index is the index of the parent
-        // and the right node's index = 2*index + 2
-        return this.isComplete(root.left, 2*index + 1, size) && 
-            this.isComplete(root.right, 2*index + 2, size)
-    }
-
-    static getSize(root) {
-        if (!root) return 0;
-        return 1 + this.getSize(root.left) + this.getSize(root.right)
     }
 }
 
@@ -82,7 +89,7 @@ const tree = new BinaryTree(data)
 
 console.log(tree.root)
 
-
 console.log(tree.isFull())
 console.log(tree.isPerfect())
-console.log(BinaryTree.isComplete(tree.root))
+console.log(tree.isBalanced())
+console.log(tree.isComplete())
