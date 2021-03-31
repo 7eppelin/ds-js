@@ -16,7 +16,7 @@ class BinaryTree {
 
     getHeight(node) {
         if (!node) return 0
-        //if (!node.left && !node.right) return 0
+        if (!node.left && !node.right) return 0
 
         const left = this.getHeight(node.left)
         const right = this.getHeight(node.right)
@@ -55,14 +55,13 @@ class BinaryTree {
 
         if (index >= this.size) return false
 
-        // in complete binary trees the left child node will always have
-        // index = 2*index + 1, where index is the index of the parent
-        // and the right node's index = 2*index + 2
+        // in complete binary trees every node's left child will always have
+        // index = 2*parentIndex + 1, and the right node's index = 2*parentIndex + 2
         return this.isComplete(root.left, 2*index + 1) && 
             this.isComplete(root.right, 2*index + 2)
     }
 
-    // create a binary tree from an array
+    // create a complete binary tree from an array
     fromArray(arr, node, i = 0) {
         if (i < arr.length) {
             node = new Node(arr[i])
