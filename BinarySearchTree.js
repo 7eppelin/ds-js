@@ -2,7 +2,7 @@
 
 // in a Binary Search Tree
 // all nodes of the root's left subtree are less than the root
-// all nodes of the root's right subtree are more than the root
+// all nodes of the root's right subtree are greater than the root
 // this applies to every internal node of a tree
 
 
