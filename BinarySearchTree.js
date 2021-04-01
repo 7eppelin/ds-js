@@ -42,7 +42,8 @@ class BinarySearchTree {
             if (val > current.value) {
                 if (current.right) {
                     // if the right node exists, go deeper
-                    current = current.right
+                    current = current.right;
+                    continue
                 } else {
                     // if there's none, finish
                     current.right = node
