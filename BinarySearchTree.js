@@ -16,14 +16,8 @@ class Node {
 
 
 class BinarySearchTree {
-    #count = 0
-
     constructor(arr) {
         arr.forEach(el => this.insertRecursively(el))
-    }
-
-    get size() { 
-        return this.#count 
     }
 
     insert(val) {
@@ -68,12 +62,10 @@ class BinarySearchTree {
     insertRecursively(val, node = this.root) {
         if (!this.root) {
             this.root = new Node(val)
-            this.#count++
             return this
         }
 
         if (!node) {
-            this.#count++
             return new Node(val)
         }
         
